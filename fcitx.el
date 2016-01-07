@@ -4,6 +4,7 @@
 
 ;; Author: Junpeng Qiu <qjpchmail@gmail.com>
 ;; Keywords: extensions
+;; Package-Version: 20160103.2101
 ;; URL: https://github.com/cute-jumper/fcitx.el
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -352,7 +353,7 @@ Default value is nil.")
   (interactive)
   (when fcitx--prefix-keys-timer
     (cancel-timer fcitx--prefix-keys-timer)
-    (setq fcitx--prefix-keys-timer)))
+    (setq fcitx--prefix-keys-timer nil)))
 
 ;;;###autoload
 (defun fcitx-prefix-keys-setup ()
@@ -382,7 +383,7 @@ Default value is nil.")
     (setq fcitx--evil-saved-active-p
           (or (fcitx--active-p)
               fcitx--prefix-keys-disabled-by-elisp))
-    (setq fcitx--prefix-keys-disabled-by-elisp)))
+    (setq fcitx--prefix-keys-disabled-by-elisp nil)))
 
 (defun fcitx--evil-switch-buffer-after ()
   (when (and evil-mode
@@ -392,7 +393,7 @@ Default value is nil.")
       (fcitx--deactivate))
      (fcitx--evil-saved-active-p
       (fcitx--activate)))
-    (setq fcitx--evil-saved-active-p)))
+    (setq fcitx--evil-saved-active-p nil)))
 
 (defun fcitx--evil-switch-buffer (orig-func &rest args)
   ;; before switch
@@ -564,7 +565,7 @@ Default value is nil.")
 (defun fcitx--aggressive-minibuffer-maybe-activate ()
   (when fcitx--aggressive-minibuffer-disabled-by-elisp
     (fcitx--activate)
-    (setq fcitx--aggressive-minibuffer-disabled-by-elisp)))
+    (setq fcitx--aggressive-minibuffer-disabled-by-elisp nil)))
 
 ;;;###autoload
 (defun fcitx-aggressive-minibuffer-turn-on ()
@@ -578,7 +579,7 @@ Default value is nil.")
 ;;;###autoload
 (defun fcitx-aggressive-minibuffer-turn-off ()
   (interactive)
-  (setq fcitx--aggressive-p)
+  (setq fcitx--aggressive-p nil)
   (remove-hook 'minibuffer-setup-hook
                #'fcitx--aggressive-minibuffer-maybe-deactivate)
   (remove-hook 'minibuffer-exit-hook
